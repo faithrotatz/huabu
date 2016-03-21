@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en" ng-app="sketch">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+
+    <script src="angular.js"></script>
+   
+
+</head>
+<style>
+     body{margin:0;font-family: '微软雅黑'}
+	.tool{width:100%;
+	      height:150px;
+          
+	      background:rgb(0,102,153);}
+	.canvasone,.toolone{margin:0 auto;
+	      padding:40px 0;
+	      box-sizing:border-box;
+	      position:relative;
+	      max-width:1000px;height:100%;
+	      }
+	ul{list-style:none;text-align:justify;padding:0;}
+	ul li{padding:0;display:inline-block;line-height:40px;
+	     width:80px;
+	     background:white;border-radius:30px;text-align:center;
+	     color:white;
+	     background-image:-webkit-linear-Gradient(#2f2f2f,#151515);
+	      cursor:pointer;}
+	.zuotutool{max-width:500px;}
+	.zuotutool::after{content:"";
+	display:inline-block;
+	width:100%;
+	height:0;
+	}
+	.zuotutool li{margin:0 10px;}
+	.control{display:inline-block;
+	width:200px;position:absolute;right:25%;top:20%;}
+	.yanliao>ul>li{width:30px;height:30px;background: blue}
+	.yanliao{position:absolute;right:0;top:30%;}
+	.canvas{width:100%;position:relative;}
+	#can{
+	     background:#ccc;
+	     margin:0 auto;display:block;}
+	.yanliao>ul>li{margin:0 5px;}
+     .controllmoshi{position:absolute;
+        left:100px;
+        top:100px;}
+
+
+    .active{
+  
+    color:#ff6700;}
+    .save{position:absolute;
+        left:100px;
+        top:300px;}
+  
+   p:hover{cursor:pointer;}
+</style>
+<body ng-controller="huabu">
+	<div class="tool">
+	 <div class="toolone">
+	 
+	  <ul class="zuotutool">
+       <li ng-repeat="(key,value) in tool" ng-click="settool(value)">{{key}}</li>
+       </ul>
+
+	  <div class="control">
+
+	  	<span>画布宽</span><input ng-model="canvaswh.w"type="range"min="1"max="600"step="20">
+	  	<span>画布长</span><input ng-model="canvaswh.h" type="range"min="1"max="600"step="20">
+	  	<span>边框宽</span><input type="range"min="1"max="20"step="1">
+	  </div>
+      <div class="yanliao">
+      	<ul>
+      	 <li ng-repeat="value in color"ng-click="setcolor($index)"></li>
+      	
+      		
+      	</ul>
+      </div>
+
+	 </div>
+	</div>
+	<div class="canvas">
+	    <div class="controllmoshi">
+
+	   <p ng-class="{active:moshi.fill=='fill'}"ng-click="setmoshi('fill')">填充</p>
+	   <span>选择颜色</span>
+     
+       <input type="color"ng-model="moshi.fillStyle">
+	   <p ng-click="setmoshi('stroke')"ng-class="{active:moshi.stroke=='stroke'}">画框</p>
+	   <span>选择颜色</span>		
+       <input type="color"ng-model="moshi.strokeStyle">
+	    	
+	    </div>
+	    <div class="save">
+	    	<p ng-class="{active:key}"ng-click="save();key=true;a=false">保存</p>
+	    	<p ng-class="{active:a}"ng-click="clear();a=true;key=false">新建</p>
+	    </div>
+		<div class="canvasone">
+			<canvas id="can"width="{{canvaswh.w}}"height="{{canvaswh.h}}"></canvas>
+		</div>
+	</div>
+</body>
+ <script src="sketch.js"></script>
+</html>
